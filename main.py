@@ -44,9 +44,9 @@ def random_game():
     players_picked = False
     players = []
     while not players_picked:
-        print('Who is playing? (csv)\n')
+        print('Who is playing? (csv)')
         players = input('>').split(',')
-        print('\n')
+        print('')
         players_picked = all(
             player in owned_games for player in players
         ) and len(players) > 0
@@ -61,10 +61,10 @@ def random_game():
     }
     while True:
         game_choice = random.choice(list(intersect))
-        print(f'You can play {game_choice}.\n')
-        print("Play or retry? ('R' to retry)\n")
+        print(f'You can play {game_choice}.')
+        print("Play or retry? ('R' to retry)")
         choice = input('>')
-        print('\n')
+        print('')
         if choice != 'R':
             break
 
