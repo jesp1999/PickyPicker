@@ -52,16 +52,19 @@ def random_game():
         ) and len(players) > 0
         if not players_picked:
             print('Invalid player(s). Try again.\n')
-    intersect = owned_games[players[0]]
+    options = owned_games[players[0]]
     for player in players[1:]:
-        intersect = intersect.intersection(owned_games[player])
-    intersect = {
-        item for item in intersect
+        options = options.intersection(owned_games[player])
+    options = {
+        item for item in options
         if game_constraints[item] <= len(players)
     }
     say_pickiest = True
     while True:
-        game_choice = random.choice(list(intersect))
+        if len(options) == 0:
+            print("No games available. Y'all are too picky.")
+            break
+        game_choice = random.choice(list(options))
         picky_person = min(players, key=lambda p: len(owned_games[p]))
         print(f'You can play {game_choice}.')
         if say_pickiest:
@@ -70,7 +73,9 @@ def random_game():
         print("Play or retry? ('R' to retry)")
         choice = input('>')
         print('')
-        if choice != 'R':
+        if choice == 'R':
+            options.remove(game_choice)
+        else:
             break
 
 
