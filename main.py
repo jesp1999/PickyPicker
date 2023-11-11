@@ -59,9 +59,14 @@ def random_game():
         item for item in intersect
         if game_constraints[item] <= len(players)
     }
+    say_pickiest = True
     while True:
         game_choice = random.choice(list(intersect))
+        picky_person = min(players, key=lambda p: len(owned_games[p]))
         print(f'You can play {game_choice}.')
+        if say_pickiest:
+            print(f'Btw, the pickiest person here is: {picky_person}')
+            say_pickiest = False
         print("Play or retry? ('R' to retry)")
         choice = input('>')
         print('')
